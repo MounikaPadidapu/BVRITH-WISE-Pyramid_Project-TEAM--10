@@ -1,0 +1,28 @@
+1. Create Virtual Environment - python -m venv <env-name>
+2. Activate the <env-name>
+3. Upgrade pip and setuptools - python -m pip install --upgrade pip , pip install setuptools --upgrade setuptools
+4. Install Pyramid - pip install "pyramid==1.7.3"
+5. Create a project - pcreate -s alchemy <project-name>, cd <project-name>
+6. Install project in development mode - pip install -e .
+7. Installing test requirements - pip install -e ".[testing]"
+   
+   easy_install error - Download ez_setup.py and run it - python ez_setup.py
+
+8. Test coverage command - py.test --cov --cov-report=term-missing
+9. Scaffolds include configuration defaults for py.test and test coverage. These configuration files are pytest.ini and .coveragerc, located at the root of your   
+   package. Without these defaults, we would need to specify the path to the module on which we want to run tests and coverage.
+
+    py.test --cov=tutorial --cov-report=term-missing tutorial\tests.py -q
+
+10. Configure database MySQL in development.ini
+    
+    sqlalchemy.url = mysql+pymysql://root:root@localhost:3306/sampledb
+    sqlalchemy.pool_recycle = 3600
+
+11. Install either MySQLdb module(not supported in Python 3.5.2). Install PyMySQL - pip install pymysql
+12. Initializing the database
+
+    initialize_tutorial_db development.ini
+
+13. Start the application - pserve development.ini --reload
+14. Open http://localhost:6543/ in browser.
