@@ -1,15 +1,22 @@
-from pyramid.response import Response
-from pyramid.view import view_config
+from django.shortcuts import render,redirect
+from app.forms import PersonInfoForm
+from app.models import PersonInfo
+from django.http import HttpResponse
+
+def index(request):
+	return HttpResponse("WELCOME TO STUDENT INFORMATION SYSTEM")
 
 
-# First view, available at http://localhost:6543/
-@view_config(route_name='home')
-def home(request):
-    return Response('<body>Visit <a href="/howdy">hello</a></body>')
-
-
-# /howdy
-@view_config(route_name='hello')
-def hello(request):
-    return Response('<body>Go back <a href="/">home</a></body>')
+def base(request):
+    if request.method == "POST":
+        form = PersonInfoForm(request.POST)
+        if form.is_valid():
+            PersonInfo = form.save(commit=False)
+            PersonInfo.save()
+            return redirect('success')
+    else:
+        form = PersonInfoForm()
+    return render(request, 'app/base.html', {'form': form})
+def success(request):
+	return HttpResponse("Successfully updated")
 
